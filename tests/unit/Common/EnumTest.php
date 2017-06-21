@@ -2,10 +2,11 @@
 
 namespace Tweakers\Tests\Common;
 
+use PHPUnit\Framework\TestCase;
 use Tweakers\Exception\InvalidEnumValue;
 use Tweakers\Stubs\StubEnum;
 
-class EnumTest extends \PHPUnit\Framework\TestCase
+class EnumTest extends TestCase
 {
     /** @var StubEnum */
     private $status;

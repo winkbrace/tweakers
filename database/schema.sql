@@ -46,7 +46,9 @@ CREATE TABLE comment_scores
   CONSTRAINT fk_comment_scores_comment FOREIGN KEY (comment_id) REFERENCES comments (id)
 );
 
-# restrict allowed scores on database level
+#####################################################
+## restrict allowed scores on database level
+#####################################################
 
 CREATE TABLE allowed_scores
 (
@@ -56,3 +58,36 @@ CREATE TABLE allowed_scores
 INSERT INTO allowed_scores( score ) VALUES (-1),(0),(1),(2),(3);
 
 ALTER TABLE comment_scores ADD FOREIGN KEY (score) REFERENCES allowed_scores (score);
+
+#####################################################
+## insert test data
+#####################################################
+
+insert into users values
+  (1, 'Abe'),
+  (2, 'Ben'),
+  (3, 'Chris');
+
+insert into articles values
+  (1, 1, 'Once upon a time', 'lorem ipsum', now()),
+  (2, 1, 'Shawshank redemption', 'lorem ipsum', now()),
+  (3, 1, 'The Hulk', 'lorem ipsum', now());
+
+insert into comments
+  (id, user_id, article_id, parent_comment_id, title, body, created_at)
+  values
+  (1, 2, 1, null, 'boo', 'I disagree.', now()),
+  (2, 2, 1, null, 'aw yeah', 'Good movie.', now()),
+  (3, 3, 1, 1, 'wut?', 'I agree.', now()),
+  (4, 3, 2, null, 'green', 'Bruce Banner is even more bad ass.', now());
+
+insert into comment_scores
+  (id, user_id, comment_id, score)
+  values
+  (1, 1, 1, -1),
+  (2, 1, 2, 2),
+  (3, 1, 4, 3),
+  (4, 2, 3, -1),
+  (5, 2, 4, 2),
+  (6, 3, 1, -1),
+  (7, 3, 2, 0);
