@@ -25,5 +25,16 @@ class ArticleRepositoryTest extends TestCase
         $this->assertInstanceOf(Article::class, $article);
         $this->assertSame(1, $article->id());
         $this->assertEquals('Once upon a time', $article->title());
+        $this->assertEquals('Abe', $article->author());
+    }
+
+    /** @test */
+    public function it_should_fetch_most_recent()
+    {
+        $articles = $this->repo->fetchMostRecent(3); // we only have 3 articles in the test data.
+
+        $this->assertCount(3, $articles);
+        $this->assertInstanceOf(Article::class, $articles[0]);
+        $this->assertEquals('Abe', $articles[0]->author());
     }
 }

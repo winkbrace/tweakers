@@ -10,7 +10,16 @@ class CommentRepository extends Repository
 
     public function fetch(int $id) : Comment
     {
-        $row = $this->fetchById($id);
+        $sql = "select c.*
+                ,      u.name author
+                from   comments c
+                join   users    u on c.user_id = u.id
+                where  c.id = :id";
+
+        $query = $this->pdo->prepare($sql);
+        $query->execute([':id' => $id]);
+
+        $row = $this->fetchRow($query);
 
         return new Comment(...$row);
     }

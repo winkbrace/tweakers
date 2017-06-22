@@ -10,7 +10,7 @@ use PDO;
 abstract class Repository
 {
     /** @var PDO */
-    private $pdo;
+    protected $pdo;
 
     protected $table = '';
 
@@ -22,16 +22,27 @@ abstract class Repository
     protected function fetchById(int $id) : array
     {
         $sql = "select * 
-                from   $this->table 
+                from   $this->table
                 where  id = :id";
 
         $query = $this->pdo->prepare($sql);
         $query->execute([':id' => $id]);
 
-        return $this->castIntegers($query->fetch(PDO::FETCH_NUM));
+        return $this->fetchRow($query);
     }
 
-    protected function castIntegers(array $row) : array
+    protected function fetchRow(\PDOStatement $query) : array
+    {
+        $row = $query->fetch(PDO::FETCH_NUM);
+
+        if ($row === false) {
+            return [];
+        }
+
+        return $this->castIntegers($row);
+    }
+
+    private function castIntegers(array $row) : array
     {
         foreach ($row as $i => $value) {
             if (is_numeric($value) && ($int = (int) $value) == $value) {

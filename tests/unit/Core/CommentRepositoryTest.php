@@ -25,5 +25,6 @@ class CommentRepositoryTest extends TestCase
         $this->assertInstanceOf(Comment::class, $comment);
         $this->assertSame(1, $comment->id());
         $this->assertEquals('I disagree.', $comment->body());
+        $this->assertEquals('Ben', $comment->author());
     }
 }

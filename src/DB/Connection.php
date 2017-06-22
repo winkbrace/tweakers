@@ -22,8 +22,22 @@ class Connection
     private static function connect()
     {
         if (! self::$pdo instanceof PDO) {
-            // Normally I'd import these from previously set environment variables using the DotEnv package.
-            self::$pdo = new PDO('mysql:host=127.0.0.1;port=33060;dbname=homestead', 'homestead', 'secret');
+            try {
+                self::connectFromHost();
+            } catch (\PDOException $e) {
+                self::connectFromServer();
+            }
         }
+    }
+
+    private static function connectFromHost() : void
+    {
+        // Normally I'd import these from previously set environment variables using the DotEnv package.
+        self::$pdo = new PDO('mysql:host=127.0.0.1;port=33060;dbname=homestead', 'homestead', 'secret');
+    }
+
+    private static function connectFromServer() : void
+    {
+        self::$pdo = new PDO('mysql:host=127.0.0.1;port=3306;dbname=homestead', 'homestead', 'secret');
     }
 }

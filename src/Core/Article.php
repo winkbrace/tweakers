@@ -19,14 +19,17 @@ class Article
     private $body;
     /** @var DateTimeImmutable */
     private $createdAt;
+    /** @var string */
+    private $author;
 
-    public function __construct(int $id, int $userId, string $title, string $body, string $createdAt)
+    public function __construct(int $id, int $userId, string $title, string $body, string $createdAt, string $author)
     {
         $this->id = $id;
         $this->userId = $userId;
         $this->title = $title;
         $this->body = $body;
         $this->createdAt = new DateTimeImmutable($createdAt);
+        $this->author = $author;
     }
 
     public function id() : int
@@ -52,5 +55,10 @@ class Article
     public function createdAt() : DateTimeImmutable
     {
         return $this->createdAt;
+    }
+
+    public function author() : string
+    {
+        return $this->author;
     }
 }
