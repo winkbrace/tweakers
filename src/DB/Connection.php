@@ -30,12 +30,18 @@ class Connection
         }
     }
 
+    /**
+     * Required for running the unit tests on my host machine
+     */
     private static function connectFromHost() : void
     {
         // Normally I'd import these from previously set environment variables using the DotEnv package.
         self::$pdo = new PDO('mysql:host=127.0.0.1;port=33060;dbname=homestead', 'homestead', 'secret');
     }
 
+    /**
+     * Required for serving the website from vagrant
+     */
     private static function connectFromServer() : void
     {
         self::$pdo = new PDO('mysql:host=127.0.0.1;port=3306;dbname=homestead', 'homestead', 'secret');
