@@ -5,7 +5,22 @@ $articleRepo = new \Tweakers\Core\ArticleRepository(\Tweakers\DB\Connection::get
 $article = $articleRepo->fetch((int) $_GET['id']);
 
 $commentRepo = new \Tweakers\Core\CommentRepository(\Tweakers\DB\Connection::get());
-$comments = $commentRepo->fetchByArticle($article);
+$comments = $commentRepo->fetchByArticleId($article->id());
+
+function renderComment(\Tweakers\Core\Comment $comment, $depth = 0) : void
+{
+    echo   '<div class="comment" style="margin-left: '. (20 * $depth) .'px;">
+                <h4>'. $comment->title() .'</h4>
+                <p class="author"><small>By: '. $comment->author() .' | Score: '. $comment->averageScore() .'</small></p>
+                <p class="body">'. $comment->body() .'</p>
+            </div>';
+
+    if ($comment->hasChildren()) {
+        foreach ($comment->children() as $child) {
+            renderComment($child, $depth + 1);
+        }
+    }
+}
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -18,42 +33,21 @@ $comments = $commentRepo->fetchByArticle($article);
 
 <div class="content">
 
-    <div>
+    <!-- The article -->
+    <div class="article">
         <h2><?= $article->title() ?></h2>
-        <p>
-            <?= $article->body() ?>
-        </p>
+        <p><small>By: <?= $article->author() ?></small></p>
+        <p class="body"><?= $article->body() ?></p>
     </div>
 
-    <table>
-        <thead>
-        <tr>
-            <th>Author</th>
-            <th>Title</th>
-            <th>Content</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($articles as $article): ?>
-            <tr id="article-<?= $article->id() ?>">
-                <td><?= $article->author() ?></td>
-                <td><?= $article->title() ?></td>
-                <td><?= $article->body() ?></td>
-            </tr>
+    <!-- The comments -->
+    <div class="comments">
+        <h3>Comments</h3>
+        <?php foreach ($comments as $comment): ?>
+            <?php renderComment($comment); ?>
         <?php endforeach; ?>
-        </tbody>
-    </table>
+    </div>
 </div>
-
-<script>
-    elements = document.getElementsByTagName('tr');
-    for (var i = 0, len = elements.length; i < len; i++) {
-        var e = elements[i];
-        e.addEventListener('click', function() {
-            window.location.href = 'article.php?id=' + this.id.substr(8);
-        }, false);
-    }
-</script>
 
 </body>
 </html>

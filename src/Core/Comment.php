@@ -15,7 +15,7 @@ class Comment
     private $userId;
     /** @var int */
     private $articleId;
-    /** @var int */
+    /** @var null|int */
     private $parentCommentId;
     /** @var string */
     private $title;
@@ -25,8 +25,12 @@ class Comment
     private $createdAt;
     /** @var string */
     private $author;
+    /** @var float */
+    private $averageScore;
+    /** @var array */
+    private $children = [];
 
-    public function __construct(int $id, int $userId, int $articleId, ?int $parentCommentId, string $title, string $body, string $createdAt, string $author)
+    public function __construct(int $id, int $userId, int $articleId, ?int $parentCommentId, string $title, string $body, string $createdAt, string $author, float $averageScore)
     {
         $this->id = $id;
         $this->userId = $userId;
@@ -36,6 +40,7 @@ class Comment
         $this->body = $body;
         $this->createdAt = new DateTimeImmutable($createdAt);
         $this->author = $author;
+        $this->averageScore = $averageScore;
     }
 
     public function id() : int
@@ -53,7 +58,7 @@ class Comment
         return $this->articleId;
     }
 
-    public function parentCommentId() : int
+    public function parentCommentId() : ?int
     {
         return $this->parentCommentId;
     }
@@ -76,5 +81,25 @@ class Comment
     public function author() : string
     {
         return $this->author;
+    }
+
+    public function averageScore() : float
+    {
+        return $this->averageScore;
+    }
+
+    public function children() : array
+    {
+        return $this->children;
+    }
+
+    public function setChildren(array $children)
+    {
+        $this->children = $children;
+    }
+
+    public function hasChildren() : bool
+    {
+        return ! empty($this->children);
     }
 }

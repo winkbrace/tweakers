@@ -52,4 +52,9 @@ abstract class Repository
 
         return $row;
     }
+
+    public function calculateOffset(int $page, int $size) : int
+    {
+        return $page * $size;
+    }
 }

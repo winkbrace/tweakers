@@ -22,3 +22,23 @@ th {
     color: white;
     background-color: #5e5e5e;
 }
+
+p.body {
+    padding: 5px;
+}
+
+div.comments {
+    padding-top: 20px;
+}
+
+div.comment {
+    border: 1px solid dimgray;
+    padding: 5px;
+    position: relative;
+}
+
+p.author {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
