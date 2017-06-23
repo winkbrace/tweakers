@@ -75,7 +75,7 @@ class CommentRepository extends Repository
     }
 
     /**
-     * Unfortunately mysql lacks hierarchical functions, so we have to solve ranking the comments in php.
+     * Unfortunately mysql lacks hierarchical functions, so we have to build the tree in php.
      *
      * @param array|Comment[] $comments
      * @param int $parentId

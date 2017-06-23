@@ -69,17 +69,17 @@ insert into users values
   (3, 'Chris');
 
 insert into articles values
-  (1, 1, 'Once upon a time', 'lorem ipsum', now()),
-  (2, 1, 'Shawshank redemption', 'lorem ipsum', now()),
-  (3, 1, 'The Hulk', 'lorem ipsum', now());
+  (1, 1, 'Once upon a time', 'lorem ipsum', '2017-06-20 10:00'),
+  (2, 1, 'Shawshank redemption', 'lorem ipsum', '2017-06-20 11:00'),
+  (3, 1, 'The Hulk', 'lorem ipsum', '2017-06-20 12:00');
 
 insert into comments
   (id, user_id, article_id, parent_comment_id, title, body, created_at)
   values
-  (1, 2, 1, null, 'boo', 'I disagree.', now()),
-  (2, 2, 1, null, 'aw yeah', 'Good movie.', now()),
-  (3, 3, 1, 1, 'wut?', 'I agree.', now()),
-  (4, 3, 3, null, 'green', 'Bruce Banner is even more bad ass.', now());
+  (1, 2, 1, null, 'boo', 'I disagree.', '2017-06-20 10:05'),
+  (2, 2, 1, null, 'aw yeah', 'Good movie.', '2017-06-20 11:30'),
+  (3, 3, 1, 1, 'wut?', 'I agree.', '2017-06-20 11:40'),
+  (4, 3, 3, null, 'green', 'Bruce Banner is even more bad ass.', '2017-06-20 14:00');
 
 insert into comment_scores
   (id, user_id, comment_id, score)
