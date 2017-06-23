@@ -3,6 +3,7 @@
 namespace Tweakers\Core;
 
 use Tweakers\DB\Repository;
+use Tweakers\Exception\EntityNotFound;
 
 class ArticleRepository extends Repository
 {
@@ -20,6 +21,10 @@ class ArticleRepository extends Repository
         $query->execute([':id' => $id]);
 
         $row = $this->fetchRow($query);
+
+        if (empty($row)) {
+            throw EntityNotFound::forEntity('Article', $id);
+        }
 
         return new Article(...$row);
     }

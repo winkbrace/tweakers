@@ -14,28 +14,17 @@ $articles = $repo->fetchMostRecent();
 <body>
 
     <div class="content">
-        <table>
-            <thead>
-                <tr>
-                    <th>Author</th>
-                    <th>Title</th>
-                    <th>Content</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($articles as $article): ?>
-                <tr id="article-<?= $article->id() ?>">
-                    <td><?= $article->author() ?></td>
-                    <td><?= $article->title() ?></td>
-                    <td><?= $article->body() ?></td>
-                </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+        <?php foreach ($articles as $article): ?>
+            <div class="article" id="article-<?= $article->id() ?>">
+                <h2><?= $article->title() ?></h2>
+                <p><small>By: <?= $article->author() ?></small></p>
+                <p class="body"><?= $article->body() ?></p>
+            </div>
+        <?php endforeach; ?>
     </div>
 
     <script>
-        elements = document.getElementsByTagName('tr');
+        elements = document.querySelectorAll('div.article');
         for (var i = 0, len = elements.length; i < len; i++) {
             var e = elements[i];
             e.addEventListener('click', function() {

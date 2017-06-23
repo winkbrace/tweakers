@@ -1,11 +1,16 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$articleRepo = new \Tweakers\Core\ArticleRepository(\Tweakers\DB\Connection::get());
-$article = $articleRepo->fetch((int) $_GET['id']);
+try {
+    $articleRepo = new \Tweakers\Core\ArticleRepository(\Tweakers\DB\Connection::get());
+    $article = $articleRepo->fetch((int) $_GET['id']);
 
-$commentRepo = new \Tweakers\Core\CommentRepository(\Tweakers\DB\Connection::get());
-$comments = $commentRepo->fetchByArticleId($article->id());
+    $commentRepo = new \Tweakers\Core\CommentRepository(\Tweakers\DB\Connection::get());
+    $comments = $commentRepo->fetchByArticleId($article->id());
+} catch (\Tweakers\Exception\EntityNotFound $e) {
+    header('Location: 404.php');
+    die;
+}
 
 function renderComment(\Tweakers\Core\Comment $comment, $depth = 0) : void
 {
@@ -32,6 +37,8 @@ function renderComment(\Tweakers\Core\Comment $comment, $depth = 0) : void
 <body>
 
 <div class="content">
+
+    <p><small><a href="overview.php">< Home</a></small></p>
 
     <!-- The article -->
     <div class="article">

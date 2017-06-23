@@ -5,22 +5,9 @@ body {
     font-family: Verdana, Arial, sans-serif;
 }
 
-tr {
-    border-bottom: 1px solid gray;
-}
-tr:hover {
+div.article:hover {
     cursor: pointer;
     background-color: #8c8c8c;
-}
-
-td, th {
-    padding: 5px;
-}
-
-th {
-    text-align: left;
-    color: white;
-    background-color: #5e5e5e;
 }
 
 p.body {

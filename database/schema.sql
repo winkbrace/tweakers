@@ -79,7 +79,7 @@ insert into comments
   (1, 2, 1, null, 'boo', 'I disagree.', now()),
   (2, 2, 1, null, 'aw yeah', 'Good movie.', now()),
   (3, 3, 1, 1, 'wut?', 'I agree.', now()),
-  (4, 3, 2, null, 'green', 'Bruce Banner is even more bad ass.', now());
+  (4, 3, 3, null, 'green', 'Bruce Banner is even more bad ass.', now());
 
 insert into comment_scores
   (id, user_id, comment_id, score)

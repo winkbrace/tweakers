@@ -39,15 +39,17 @@ abstract class Repository
             return [];
         }
 
-        return $this->castIntegers($row);
+        return $this->castNumbers($row);
     }
 
-    private function castIntegers(array $row) : array
+    private function castNumbers(array $row) : array
     {
         foreach ($row as $i => $value) {
-            if (is_numeric($value) && ($int = (int) $value) == $value) {
-                $row[$i] = $int;
+            if (! is_numeric($value)) {
+                continue;
             }
+
+            $row[$i] = (int) $value == $value ? (int) $value : (float) $value;
         }
 
         return $row;
